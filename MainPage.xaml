@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:XamlMvvm"
+    mc:Ignorable="d"
+    BackgroundColor="PowderBlue"
+    Title="API Data Retrieval"
+    x:Class="XamlMvvm.MainPage">
+
+    
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid Margin="20,40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2.5*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        
+        <Editor x:Name="EditHere"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Placeholder="Enter Note"
+                Margin="10,10"
+                BackgroundColor="Black"
+                Text="{Binding NoteText}"
+                TextColor="Cyan"
+                />
+
+        <Button Text="Fetch Data"
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="10,0"
+                Command="{Binding SaveNoteCommand}"
+                
+                BackgroundColor="Green"
+                TextColor="White" />
+
+        <Button Text="Delete"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="10,0"
+                Command="{Binding EraseNotesCommand}"
+                BackgroundColor="Red"
+                TextColor="White" />
+        <Button Text="Show List"
+                Grid.RowSpan="1"
+                Grid.Row="3"
+                Grid.Column="0"
+                Clicked="GoToList"
+
+                Margin="10,0"
+                BackgroundColor="AliceBlue"
+                TextColor="Black"
+                />
+
+        <CollectionView x:Name="Collection1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="4"
+                        ItemsSource="{Binding Notes}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10,10">
+                        <Frame>
+                            <Label                                    
+                                   Text="{Binding Text}"
+                                   TextColor="AntiqueWhite"
+                                   BackgroundColor="Black"
+                                   VerticalTextAlignment="Center">
+                                   
+                            </Label>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
+
